@@ -1,6 +1,10 @@
 package io.zipcoder;
 
+import java.lang.reflect.Array;
+import java.util.Random;
+
 public class MonkeyTypewriter {
+
     public static void main(String[] args) {
         String introduction = "It was the best of times,\n" +
                 "it was the blurst of times,\n" +
@@ -26,28 +30,33 @@ public class MonkeyTypewriter {
         // Do all of the Monkey / Thread building here
         // For each Copier(one safe and one unsafe), create and start 5 monkeys copying the introduction to
         // A Tale Of Two Cities.
-        /*for (int i = 0; i < 5; i++) {
-            Thread thread = new Thread(new UnsafeCopier(introduction));
+
+        Thread[] threadArray = new Thread[5];
+
+        for (int i = 0; i < 5; i++) {
+            Thread thread = new Thread(unsafeCopier);
+            threadArray[i] = thread;
+        }
+
+        for (int i = 0; i < threadArray.length; i++) {
+            Thread thread = threadArray[i];
+            int num = unsafeCopier.possibleRandomPause();
+            if (num < 5) {
+                try {
+                    thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
             thread.start();
-        }*/
-
-        Thread thread1 = new Thread(unsafeCopier);
-        Thread thread2 = new Thread(unsafeCopier);
-        Thread thread3 = new Thread(unsafeCopier);
-        Thread thread4 = new Thread(unsafeCopier);
-        Thread thread5 = new Thread(unsafeCopier);
-
-        thread1.start();
-        thread2.start();
-        thread3.start();
-        thread4.start();
-        thread5.start();
+        }
 
         Thread thread6 = new Thread(safeCopier);
         Thread thread7 = new Thread(safeCopier);
         Thread thread8 = new Thread(safeCopier);
         Thread thread9 = new Thread(safeCopier);
         Thread thread10 = new Thread(safeCopier);
+
 
         thread6.start();
         thread7.start();
@@ -63,9 +72,14 @@ public class MonkeyTypewriter {
             System.out.println("MAIN INTERRUPTED");
         }
 
+
+
         // Print out the copied versions here.
+
+        System.out.println("Unsafe Version:");
         System.out.println(unsafeCopier.copied);
         System.out.println("\n");
+        System.out.println("Safe Version:");
         System.out.println(safeCopier.copied);
     }
 }
