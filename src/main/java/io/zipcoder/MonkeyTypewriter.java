@@ -57,7 +57,6 @@ public class MonkeyTypewriter {
         Thread thread9 = new Thread(safeCopier);
         Thread thread10 = new Thread(safeCopier);
 
-
         thread6.start();
         thread7.start();
         thread8.start();
@@ -72,10 +71,7 @@ public class MonkeyTypewriter {
             System.out.println("MAIN INTERRUPTED");
         }
 
-
-
         // Print out the copied versions here.
-
         System.out.println("Unsafe Version:");
         System.out.println(unsafeCopier.copied);
         System.out.println("\n");

@@ -10,7 +10,7 @@ public class SafeCopier extends Copier {
         super(toCopy);
     }
 
-    public void run() {
+    public synchronized void run() {
         while (stringIterator.hasNext()) {
             copied += stringIterator.next() + " ";
         }
